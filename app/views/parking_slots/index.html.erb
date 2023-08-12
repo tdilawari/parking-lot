@@ -1,0 +1,33 @@
+<% provide(:title, 'List of parked vehicles') %>
+<h1>List of parked vehicles :</h1>
+
+<%= form_tag(parking_slots_path, method: :get) do %>
+<%= label_tag :type, "Vehicle type :" %>
+<div>
+  <%= select_tag "type", options_for_select(['FourWheeler', 'TwoWheeler']), multiple: true%>
+</div>
+<%= label_tag :type, "Entry Gate :" %>
+<div>
+  <%= select_tag "entry_gate", options_for_select(['1', '2', '3', '4']), multiple: true%>
+</div><br>
+ <%= submit_tag 'Search', name: nil %>
+<% end %>
+<br>
+<table>
+ <thead>
+   <tr>
+    <th></th>
+   </tr>
+ </thead>
+
+ <tbody>
+  <tr>
+    <% @parking_slots.each do |parking_slot| %>
+      <div class='parking_slot'>
+        <strong> <%= parking_slot.slot %> </strong>
+        <%= button_to 'Unpark', parking_slot_path(id: parking_slot.id), method: :delete %>
+      </div>
+    <% end %>
+  </tr>   
+</tbody>
+<%= link_to 'Back to home page' , root_path%> 

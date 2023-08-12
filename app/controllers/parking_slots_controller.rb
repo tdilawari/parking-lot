@@ -12,7 +12,18 @@ class ParkingSlotsController < ApplicationController
       flash[:success] = "New slot parked."
       redirect_to root_path
     end
-  end 
+  end
+
+  def index
+    @parking_slots = ParkingSlot.joins(:vehicle).where(parked: true, entry_gate: params[:entry_gate], vehicles: {type: params[:type]})
+  end
+
+  def destroy
+    @ps = ParkingSlot.find(params[:id])
+    @ps.destroy
+    flash[:success] = 'Slot was unparked successfully.'
+    redirect_to parking_slots_path
+  end
 
   private
 

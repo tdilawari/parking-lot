@@ -5,7 +5,6 @@ class VehiclesController < ApplicationController
 
   def create
     @vehicle = Vehicle.new(vehicle_params)
-    @vehicle.update(type: params[:vehicle][:type].gsub(/\s+/, ""))
     if @vehicle.save
       redirect_to url_for(:controller => :parking_slots, :action => :new, :vehicle_id => @vehicle.id, :entry_gate => params[:vehicle][:entry_gate])
     else
@@ -28,6 +27,6 @@ class VehiclesController < ApplicationController
 
   private
   def vehicle_params
-    params.require(:vehicle).permit(:color, :registeration_number)
+    params.require(:vehicle).permit(:color, :registeration_number, :type)
   end
 end
