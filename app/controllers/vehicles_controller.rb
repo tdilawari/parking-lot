@@ -8,8 +8,7 @@ class VehiclesController < ApplicationController
     if @vehicle.save
       redirect_to url_for(:controller => :parking_slots, :action => :new, :vehicle_id => @vehicle.id, :entry_gate => params[:vehicle][:entry_gate])
     else
-      format.html { render :new }
-      format.json { render json: @vehicle.errors, status: :unprocessable_entity }
+      render 'new'
     end
   end
 

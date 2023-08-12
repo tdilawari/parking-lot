@@ -13,12 +13,12 @@
     <h1> Enter vehicle Details </h1>
     <div class="field">
       <%= f.label :color %><br>
-      <%= f.text_field :color, :class => "color" %>
+      <%= f.text_field :color, :class => "color" , :required => 'required' %>
       <p class="error" > </p>
     </div>
     <div class="field">
       <%= f.label :registeration_number %><br>
-      <%= f.text_field :registeration_number ,:class => "registeration_number" %>
+      <%= f.text_field :registeration_number ,:class => "registeration_number", :required => 'required' %>
       <p class="error" > </p>
     </div>
     <div class="field">
