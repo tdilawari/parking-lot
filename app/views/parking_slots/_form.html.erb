@@ -1,0 +1,41 @@
+<%= form_with(model: @parking_slot, local: true) do |f|%>
+  <% if @parking_slot.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@parking_slot.errors.count, "error") %> prohibited this vehicle from being saved:</h2>
+
+      <ul>
+        <% @parking_slot.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <% slots = SLOTS["ENTRY_GATE"]["#@entry_gate"][@vehicle.type] %>
+  <% available_slots = slots - ParkingSlot.where(slot: slots, parked: true).pluck(:slot)%>
+  <% if available_slots.present? %>
+    <h1> Available Slots </h1>
+    <div class="field">
+      <%= f.label :slot %><br>
+      <%= f.select :slot, available_slots %>
+      <p class="error" > </p>
+    </div>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+  <% else %>
+    <h1> No slots Available </h1>
+    <%= link_to 'Check from another gate', @vehicle.type == "TwoWheeler" ? edit_two_wheeler_path(id: @vehicle.id) : edit_four_wheeler_path(id: @vehicle.id)  %>
+  <% end %>
+  <div class="field">
+    <%= f.hidden_field :vehicle_id, value: @vehicle.id %>
+    <p class="error" > </p>
+  </div>
+  <div class="field">
+    <%= f.hidden_field :entry_gate, value: @entry_gate %>
+    <p class="error" > </p>
+  </div>
+  <div class="field">
+    <%= f.hidden_field :type, value: @vehicle.type %>
+    <p class="error" > </p>
+  </div>
+<% end %>

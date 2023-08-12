@@ -1,4 +1,3 @@
 class ParkingSlot < ApplicationRecord
-  belongs_to :two_wheeler
-  belongs_to :four_wheeler
+  belongs_to :vehicle
 end
