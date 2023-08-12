@@ -15,7 +15,8 @@ class ParkingSlotsController < ApplicationController
   end
 
   def index
-    @parking_slots = ParkingSlot.joins(:vehicle).where(parked: true, entry_gate: params[:entry_gate], vehicles: {type: params[:type]})
+    @parking_slots = ParkingSlot.joins(:vehicle).where(parked: true, vehicles: {registeration_number: params[:registeration_number]})
+    flash[:notice] = "No records found based on the search." if @parking_slots.blank?
   end
 
   def destroy
