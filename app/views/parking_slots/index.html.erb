@@ -1,0 +1,28 @@
+<% provide(:title, 'List of parked vehicles') %>
+<h1>Unpark vehicle:</h1>
+
+<%= form_tag(parking_slots_path, method: :get) do %>
+  <%= label_tag :registeration_number, "Vehicle registeration number:" %>
+  <%= text_field_tag :registeration_number, params[:search], include_blank: true, placeholder: "Search for slot by vehicle's registeration number" %>
+  <%= submit_tag 'Search', name: nil %>
+<% end %>
+<br>
+<table>
+ <thead>
+   <tr>
+    <th></th>
+   </tr>
+ </thead>
+
+ <tbody>
+  <tr>
+    <% @parking_slots.each do |parking_slot| %>
+      <div class='parking_slot'>
+        <strong> <%= parking_slot.slot %> </strong> <br>
+        <%= parking_slot.vehicle.registeration_number %>
+        <%= button_to 'Unpark', parking_slot_path(id: parking_slot.id), method: :patch %>
+      </div>
+    <% end %>
+  </tr>   
+</tbody>
+<%= link_to 'Back to home page' , root_path%> 
