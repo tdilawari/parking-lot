@@ -4,7 +4,10 @@ class VehiclesController < ApplicationController
   end
 
   def create
-    @vehicle = Vehicle.new(vehicle_params)
+    @vehicle = Vehicle.find_by(vehicle_params)
+    unless @vehicle.present?
+      @vehicle = Vehicle.new(vehicle_params)
+    end
     if @vehicle.save
       redirect_to url_for(:controller => :parking_slots, :action => :new, :vehicle_id => @vehicle.id, :entry_gate => params[:vehicle][:entry_gate])
     else

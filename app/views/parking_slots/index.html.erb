@@ -20,7 +20,7 @@
       <div class='parking_slot'>
         <strong> <%= parking_slot.slot %> </strong> <br>
         <%= parking_slot.vehicle.registeration_number %>
-        <%= button_to 'Unpark', parking_slot_path(id: parking_slot.id), method: :delete %>
+        <%= button_to 'Unpark', parking_slot_path(id: parking_slot.id), method: :patch %>
       </div>
     <% end %>
   </tr>   

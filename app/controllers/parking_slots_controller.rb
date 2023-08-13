@@ -19,9 +19,9 @@ class ParkingSlotsController < ApplicationController
     flash[:notice] = "No records found based on the search." if @parking_slots.blank?
   end
 
-  def destroy
-    @ps = ParkingSlot.find(params[:id])
-    @ps.destroy
+  def update
+    @ps = ParkingSlot.find(params[:id]).update(parked: false)
+    # @ps.destroy
     flash[:success] = 'Slot was unparked successfully.'
     redirect_to parking_slots_path
   end

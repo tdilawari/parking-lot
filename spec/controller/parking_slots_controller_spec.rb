@@ -28,13 +28,15 @@ RSpec.describe ParkingSlotsController, type: :controller do
     end
   end
 
-  describe "ParkingSlot#destroy" do
+  describe "ParkingSlot#update" do
     it "unpark a vehicle froma a parking slot" do
       parking_slot = FactoryBot.create(:parking_slot)
+      patch :update, params: {id: parking_slot.id, parked: false}
+      updated_slot =  ParkingSlot.find_by(id: parking_slot.id)
       parking_slots_count = ParkingSlot.all.count
-      delete :destroy, params: { id: parking_slot.id }
       expect(parking_slots_count).to eq(1)
-      expect(ParkingSlot.all.count).to eq(0)
+      expect(updated_slot.parked).to eq(false)
+      expect(parking_slot.parked).to eq(true)
       expect(response).to redirect_to("/parking_slots")
     end
   end

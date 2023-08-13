@@ -10,17 +10,17 @@
       </ul>
     </div>
   <% end %>
-  <% slots = SLOTS["ENTRY_GATE"]["#@entry_gate"][@vehicle.type] %>
-  <% available_slots = slots - ParkingSlot.where(slot: slots, parked: true).pluck(:slot)%>
+  <% all_slots = SLOTS["ENTRY_GATE"]["#@entry_gate"][@vehicle.type] %>
+  <% available_slots = all_slots - ParkingSlot.where(slot: all_slots, parked: true).pluck(:slot)%>
   <% if available_slots.present? %>
     <h1> Available Slots </h1>
     <div class="field">
-      <%= f.label :slot %><br>
+      <%= f.label :choose_a_slot %><br>
       <%= f.select :slot, available_slots %>
       <p class="error" > </p>
     </div>
     <div class="actions">
-      <%= f.submit "Alot parking slot" %>
+      <%= f.submit "Alot" %>
     </div>
   <% else %>
     <h1> No slots Available </h1>
